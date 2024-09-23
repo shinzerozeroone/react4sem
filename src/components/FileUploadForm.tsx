@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Document, Page, Text, StyleSheet, pdf, BlobProvider, Image } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
+import { Link } from 'react-router-dom';
 
 const styles = StyleSheet.create({
   page: {
@@ -64,8 +65,8 @@ const FileUploadForm = () => {
     const pdfDoc = (
       <PDFDocument text={text} fileName={file ? file.name : null} imageUrl={imageUrl} />
     );
-    const blob = await pdf(pdfDoc).toBlob(); // Генерация PDF в Blob
-    saveAs(blob, 'output.pdf');              // Сохранение с помощью file-saver
+    const blob = await pdf(pdfDoc).toBlob();
+    saveAs(blob, 'output.pdf');             
   };
 
   return (
@@ -87,6 +88,7 @@ const FileUploadForm = () => {
         </div>
       </form>
 
+
       <BlobProvider
         document={<PDFDocument text={text} fileName={file ? file.name : null} imageUrl={imageUrl} />}
       >
@@ -96,6 +98,9 @@ const FileUploadForm = () => {
           </button>
         )}
       </BlobProvider>
+
+      <Link to={'pagination'}><button>To Pagination</button></Link>
+
     </div>
   );
 };
